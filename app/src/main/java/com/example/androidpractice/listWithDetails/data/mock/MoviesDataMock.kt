@@ -11,7 +11,8 @@ object MoviesDataMock {
             primary_title = "Mickey 17",
             original_title = "Mickey 17",
             aggregate_rating = 6.8,
-            start_year = "2025"
+            start_year = "2025",
+            img_url = "https://m.media-amazon.com/images/M/MV5BZGQwYmEzMzktYzBmMy00NmVmLTkyYTUtOTYyZjliZDNhZGVkXkEyXkFqcGc@._V1_.jpg"
         ),
         MoviesShortEntity(
             id = "tt9603212",
@@ -19,7 +20,8 @@ object MoviesDataMock {
             primary_title = "Mission: Impossible - Dead Reckoning Part One",
             original_title = "Mission: Impossible - Dead Reckoning Part One",
             aggregate_rating = 7.6,
-            start_year = "2023"
+            start_year = "2023",
+            img_url = "https://m.media-amazon.com/images/M/MV5BN2U4OTdmM2QtZTkxYy00ZmQyLTg2N2UtMDdmMGJmNDhlZDU1XkEyXkFqcGc@._V1_.jpg"
         ),
         MoviesShortEntity(
             id = "tt18335752",
@@ -27,7 +29,8 @@ object MoviesDataMock {
             primary_title = "1923",
             original_title = "1923",
             aggregate_rating = 8.3,
-            start_year = "2022"
+            start_year = "2022",
+            img_url = "https://m.media-amazon.com/images/M/MV5BMTU3MGViZTItMmI5NS00MzMwLWFkNjctOGFlNWVmNDM0N2QyXkEyXkFqcGc@._V1_.jpg"
         ),
         MoviesShortEntity(
             id = "tt3748528",
@@ -35,7 +38,8 @@ object MoviesDataMock {
             primary_title = "Rogue One: A Star Wars Story",
             original_title = "Rogue One",
             aggregate_rating = 7.8,
-            start_year = "2016"
+            start_year = "2016",
+            img_url = "https://m.media-amazon.com/images/M/MV5BMjEwMzMxODIzOV5BMl5BanBnXkFtZTgwNzg3OTAzMDI@._V1_.jpg"
         ),
         MoviesShortEntity(
             id = "tt0388629",
@@ -43,7 +47,8 @@ object MoviesDataMock {
             primary_title = "One Piece",
             original_title = "One Piece: Wan pîsu",
             aggregate_rating = 9.0,
-            start_year = "1999"
+            start_year = "1999",
+            img_url = "https://m.media-amazon.com/images/M/MV5BMTNjNGU4NTUtYmVjMy00YjRiLTkxMWUtNzZkMDNiYjZhNmViXkEyXkFqcGc@._V1_.jpg"
         ),
         MoviesShortEntity(
             id = "tt7235466",
@@ -51,7 +56,8 @@ object MoviesDataMock {
             primary_title = "9-1-1",
             original_title = "9-1-1",
             aggregate_rating = 7.9,
-            start_year = "2018"
+            start_year = "2018",
+            img_url = "https://m.media-amazon.com/images/M/MV5BNjZiZWIxZWMtMTU4Mi00ZDNmLWJmMjAtYjBiY2IyODY5ZTI1XkEyXkFqcGc@._V1_.jpg"
         ),
         MoviesShortEntity(
             id = "tt13991232",
@@ -59,7 +65,8 @@ object MoviesDataMock {
             primary_title = "1883",
             original_title = "1883",
             aggregate_rating = 8.7,
-            start_year = "2021"
+            start_year = "2021",
+            img_url = "https://m.media-amazon.com/images/M/MV5BMDBjZDQyMWMtZmI0My00MzJlLWFhMTMtNWZmOTJkNzFlZTliXkEyXkFqcGc@._V1_.jpg"
         ),
         MoviesShortEntity(
             id = "tt28679253",
@@ -67,7 +74,8 @@ object MoviesDataMock {
             primary_title = "Eleven",
             original_title = "Eleven",
             aggregate_rating = 7.4,
-            start_year = "2025"
+            start_year = "2025",
+            img_url = "https://m.media-amazon.com/images/M/MV5BNzNkMGU4YzYtNTY1MC00MmIzLWI0ZjctMzhlMzYwZjQ3MjZjXkEyXkFqcGc@._V1_.jpg"
         ),
         MoviesShortEntity(
             id = "tt1160419",
@@ -75,7 +83,8 @@ object MoviesDataMock {
             primary_title = "Dune: Part One",
             original_title = "Dune: Part One",
             aggregate_rating = 8.0,
-            start_year = "2021"
+            start_year = "2021",
+            img_url = "https://m.media-amazon.com/images/M/MV5BNWIyNmU5MGYtZDZmNi00ZjAwLWJlYjgtZTc0ZGIxMDE4ZGYwXkEyXkFqcGc@._V1_.jpg"
         ),
         MoviesShortEntity(
             id = "tt0050083",
@@ -83,7 +92,8 @@ object MoviesDataMock {
             primary_title = "12 Angry Men",
             original_title = "12 Angry Men",
             aggregate_rating = 9.0,
-            start_year = "1957"
+            start_year = "1957",
+            img_url = "https://m.media-amazon.com/images/M/MV5BYjE4NzdmOTYtYjc5Yi00YzBiLWEzNDEtNTgxZGQ2MWVkN2NiXkEyXkFqcGc@._V1_.jpg"
         )
     )
 

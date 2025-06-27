@@ -8,4 +8,5 @@ class MoviesShortEntity(
     val aggregate_rating: Double,
     val start_year: String,
     //TODO: end_year
+    val img_url: String
 )
