@@ -19,16 +19,17 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import com.example.androidpractice.listWithDetails.presentation.screen.ListScreen
 import com.example.androidpractice.profile.presentation.screens.ProfileScreen
+import com.github.terrakok.modo.animation.SlideTransition
 import com.github.terrakok.modo.multiscreen.MultiScreen
 import com.github.terrakok.modo.multiscreen.MultiScreenNavModel
+import com.github.terrakok.modo.multiscreen.selectScreen
 import kotlinx.parcelize.Parcelize
-
 
 @Parcelize
 class MainTabScreenFinal(
     private val navModel: MultiScreenNavModel = MultiScreenNavModel(
-        ListScreen(),
-        ProfileScreen(),
+        listOf(ListScreen(),
+            ProfileScreen()),
         selected = 0
     )
 ) : MultiScreen(navModel) {
