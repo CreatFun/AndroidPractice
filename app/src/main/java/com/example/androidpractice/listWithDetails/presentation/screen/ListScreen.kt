@@ -33,6 +33,8 @@ import androidx.compose.runtime.setValue
 import com.example.androidpractice.listWithDetails.data.domain.repository.IMoviesRepository
 import com.example.androidpractice.listWithDetails.data.mock.MoviesDataMock
 import com.example.androidpractice.listWithDetails.repository.MoviesRepository
+import com.github.terrakok.modo.stack.LocalStackNavigation
+import com.github.terrakok.modo.stack.forward
 import ru.dekabrsky.consecutivepractice2025.ui.theme.Spacing
 
 @Parcelize
@@ -43,13 +45,13 @@ class ListScreen(
     @Composable
     override fun Content(modifier: Modifier) {
         var items by remember { mutableStateOf(MoviesRepository().getList()) }
+        val navigation = LocalStackNavigation.current
 
         LazyColumn(Modifier.padding(Spacing.small)) {
             items(items) {
                 MovieItem(
                     item = it,
-//                    Modifier.clickable {  }
-                    //TODO: click
+                    Modifier.clickable { navigation.forward(DetailsScreen(movieId = it.id)) }
                 )
             }
         }
@@ -101,19 +103,3 @@ fun MovieItemPreview() {
     MovieItem(item = MoviesDataMock.moviesShort.first())
 }
 
-@Preview(showBackground = true)
-@Composable
-fun ColumnPreview() {
-    var items by remember { mutableStateOf(MoviesRepository().getList()) }
-
-    LazyColumn(Modifier.padding(Spacing.small)) {
-        items(items) {
-            MovieItem(
-                item = it,
-//                    Modifier.clickable {  }
-                //TODO: click
-            )
-        }
-    }
-
-}
