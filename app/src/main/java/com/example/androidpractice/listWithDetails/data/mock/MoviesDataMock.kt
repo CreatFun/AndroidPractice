@@ -94,7 +94,44 @@ object MoviesDataMock {
             aggregate_rating = 9.0,
             start_year = "1957",
             img_url = "https://m.media-amazon.com/images/M/MV5BYjE4NzdmOTYtYjc5Yi00YzBiLWEzNDEtNTgxZGQ2MWVkN2NiXkEyXkFqcGc@._V1_.jpg"
+        ),
+        MoviesShortEntity(
+            id = "tt13991232",
+            type = "tvMiniSeries",
+            primary_title = "1883",
+            original_title = "1883",
+            aggregate_rating = 8.7,
+            start_year = "2021",
+            img_url = "https://m.media-amazon.com/images/M/MV5BMDBjZDQyMWMtZmI0My00MzJlLWFhMTMtNWZmOTJkNzFlZTliXkEyXkFqcGc@._V1_.jpg"
+        ),
+        MoviesShortEntity(
+            id = "tt28679253",
+            type = "movie",
+            primary_title = "Eleven",
+            original_title = "Eleven",
+            aggregate_rating = 7.4,
+            start_year = "2025",
+            img_url = "https://m.media-amazon.com/images/M/MV5BNzNkMGU4YzYtNTY1MC00MmIzLWI0ZjctMzhlMzYwZjQ3MjZjXkEyXkFqcGc@._V1_.jpg"
+        ),
+        MoviesShortEntity(
+            id = "tt1160419",
+            type = "movie",
+            primary_title = "Dune: Part One",
+            original_title = "Dune: Part One",
+            aggregate_rating = 8.0,
+            start_year = "2021",
+            img_url = "https://m.media-amazon.com/images/M/MV5BNWIyNmU5MGYtZDZmNi00ZjAwLWJlYjgtZTc0ZGIxMDE4ZGYwXkEyXkFqcGc@._V1_.jpg"
+        ),
+        MoviesShortEntity(
+            id = "tt0050083",
+            type = "movie",
+            primary_title = "12 Angry Men",
+            original_title = "12 Angry Men",
+            aggregate_rating = 9.0,
+            start_year = "1957",
+            img_url = "https://m.media-amazon.com/images/M/MV5BYjE4NzdmOTYtYjc5Yi00YzBiLWEzNDEtNTgxZGQ2MWVkN2NiXkEyXkFqcGc@._V1_.jpg"
         )
+
     )
 
     val moviesFull = listOf(
