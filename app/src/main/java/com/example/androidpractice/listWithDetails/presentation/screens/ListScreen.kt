@@ -38,6 +38,7 @@ import androidx.compose.ui.res.stringResource
 import com.example.androidpractice.R
 import com.example.androidpractice.listWithDetails.presentation.viewModel.ListViewModel
 import com.example.androidpractice.ui.components.FullscreenLoading
+import com.example.androidpractice.ui.components.FullscreenMessage
 import com.github.terrakok.modo.stack.LocalStackNavigation
 import org.koin.androidx.compose.koinViewModel
 import org.koin.core.parameter.parametersOf
@@ -73,6 +74,11 @@ class ListScreen(
         ) {
             if (state.isLoading) {
                 FullscreenLoading()
+                return@Scaffold
+            }
+
+            state.error?.let {
+                FullscreenMessage(msg = it)
                 return@Scaffold
             }
 

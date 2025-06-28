@@ -40,27 +40,16 @@ class ListViewModel(
 
     private fun loadMovies(query: String) {
         mutableState.items = emptyList()
-        //TODO: mutableState.error = null
+        mutableState.error = null
 
         if (query.length < MIN_QUERY_LENGTH_TO_SEARCH) return
 
         viewModelScope.launchLoadingAndError(
-            //TODO: handleError = { mutableState.error = it.localizedMessage },
+            handleError = { mutableState.error = it.localizedMessage },
             updateLoading = { mutableState.isLoading = it }
         ) {
             mutableState.items = repository.getList(query)
         }
-
-////        mutableState.items = repository.getList(viewState.query)
-//        mutableState.items = emptyList()
-////        mutableState.error = null
-//        viewModelScope.launchLoadingAndError(
-////            handleError = { mutableState.error = it.localizedMessage },
-//            updateLoading = { mutableState.isLoading = it },
-////            handleError = TODO()
-//        ) {
-//            mutableState.items = repository.getList(query)
-//        }
     }
 
     fun onItemClicked(id: String) {
@@ -78,7 +67,7 @@ class ListViewModel(
         override var query by mutableStateOf("")
         override val isEmpty get() = items.isEmpty()
         override var isLoading: Boolean by mutableStateOf(false)
-        //TODO: override var error: String? by mutableStateOf(null)
+        override var error: String? by mutableStateOf(null)
     }
     companion object {
         private const val MIN_QUERY_LENGTH_TO_SEARCH = 3

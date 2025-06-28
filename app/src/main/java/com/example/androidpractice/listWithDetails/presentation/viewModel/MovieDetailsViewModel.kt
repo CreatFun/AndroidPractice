@@ -25,37 +25,23 @@ class MovieDetailsViewModel(
 
     init {
         viewModelScope.launchLoadingAndError(
-            //TODO: handleError = { mutableState.error = it.localizedMessage },
+            handleError = { mutableState.error = it.localizedMessage },
             updateLoading = { mutableState.isLoading = it }
         ) {
             mutableState.movie = repository.getById(id)
 
-            //TODO: "Похожие фильмы"
-//            mutableState.movie?.primary_title?.let {
-//                launch { mutableState.related = repository.getList(it).take(3) }
-//            }
         }
-//        mutableState.movie = repository.getById(id)
     }
 
     fun back() {
         navigation.back()
     }
 
-    //TODO: для пользовательского рейтинга (можно убрать, если не буду реализовывать)
-//    fun onRatingChanged(rating: Float) {
-//        mutableState.rating = rating
-//    }
+
 
     private class MutableDetailsState : MovieDetailsState {
         override var movie: MovieFullEntity? by mutableStateOf(null)
         override var isLoading: Boolean by mutableStateOf(false)
-        //TODO: override var error: String? by mutableStateOf(null)
-
-        //TODO: для пользовательского рейтинга (можно убрать, если не буду реализовывать)
-//        override var rating: Float by mutableFloatStateOf(0f)
-//        override val isRatingVisible: Boolean get() = rating != 0f
-        //TODO: "Похожие фильмы"
-        //override var related: List<MoviesShortEntity> by mutableStateOf(emptyList())
+        override var error: String? by mutableStateOf(null)
     }
 }

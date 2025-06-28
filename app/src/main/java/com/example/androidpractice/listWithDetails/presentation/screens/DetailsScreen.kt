@@ -30,6 +30,7 @@ import com.example.androidpractice.listWithDetails.data.repository.MoviesReposit
 import com.example.androidpractice.listWithDetails.presentation.state.MovieDetailsState
 import com.example.androidpractice.listWithDetails.presentation.viewModel.MovieDetailsViewModel
 import com.example.androidpractice.ui.components.FullscreenLoading
+import com.example.androidpractice.ui.components.FullscreenMessage
 import com.github.terrakok.modo.Screen
 import com.github.terrakok.modo.ScreenKey
 import com.github.terrakok.modo.generateScreenKey
@@ -57,7 +58,6 @@ class DetailsScreen(
         MovieScreenContent(
             state,
             onBackPressed = { viewModel.back() }
-            //TODO: onRatingChanged: onRatingChanged = { viewModel.onRatingChanged(it) } если буду реализовывать пользовательский рейтинг
         )
     }
 }
@@ -91,11 +91,10 @@ private fun MovieScreenContent(
             return@Scaffold
         }
 
-        //TODO: Вывод текста ошибки
-//        state.error?.let {
-//            FullscreenMessage(msg = it)
-//            return@Scaffold
-//        }
+        state.error?.let {
+            FullscreenMessage(msg = it)
+            return@Scaffold
+        }
         val movie = state.movie ?:
             return@Scaffold
 

@@ -13,10 +13,6 @@ class MoviesRepository(
     override suspend fun getList(q: String) =
         withContext(Dispatchers.IO){
             val response = api.getMovies(q)
-            //TODO: Обработать ошибку
-//            if (response.response.not()) {
-//                throw Exception(response.error.orEmpty())
-//            }
             mapper.mapSearch(response)
         }
 
@@ -24,9 +20,5 @@ class MoviesRepository(
     override suspend fun getById(id: String) =
         withContext(Dispatchers.IO) {
             val response = api.getMovie(id)
-            //TODO: Обработать ошибку
-//            if (response.response.not()) {
-//                throw Exception(response.error.orEmpty())
-//            }
             mapper.mapFull(response)
         }}
