@@ -6,4 +6,6 @@ interface MoviesListState {
     val items: List<MoviesShortEntity>
     val query: String
     val isEmpty: Boolean
+    var isLoading: Boolean
+    //TODO: добавить поле ошибки val error: String? или Boolean
 }
