@@ -1,4 +1,4 @@
-package com.example.androidpractice.listWithDetails.presentation.screen
+package com.example.androidpractice.listWithDetails.presentation.screens
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -21,25 +21,24 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
-import com.example.androidpractice.listWithDetails.data.entity.MovieFullEntity
-import com.example.androidpractice.listWithDetails.repository.MoviesRepository
+import com.example.androidpractice.listWithDetails.data.repository.MoviesRepository
+import com.example.androidpractice.listWithDetails.presentation.state.MovieDetailsState
+import com.example.androidpractice.listWithDetails.presentation.viewModel.MovieDetailsViewModel
+import com.example.androidpractice.ui.components.FullscreenLoading
+import com.example.androidpractice.ui.components.FullscreenMessage
 import com.github.terrakok.modo.Screen
 import com.github.terrakok.modo.ScreenKey
 import com.github.terrakok.modo.generateScreenKey
-import com.github.terrakok.modo.stack.StackNavContainer
 import kotlinx.parcelize.Parcelize
 import ru.dekabrsky.consecutivepractice2025.ui.theme.Spacing
 import com.github.terrakok.modo.stack.LocalStackNavigation
-import com.github.terrakok.modo.stack.back
+import org.koin.androidx.compose.koinViewModel
+import org.koin.core.parameter.parametersOf
 
 
 @Parcelize
@@ -50,14 +49,15 @@ class DetailsScreen(
 
     @Composable
     override fun Content(modifier: Modifier) {
-        val movie by remember {
-            mutableStateOf(MoviesRepository().getById(movieId))
+        val navigation = LocalStackNavigation.current
+        val viewModel = koinViewModel<MovieDetailsViewModel>{
+            parametersOf(navigation, movieId)
         }
+        val state = viewModel.viewState
 
         MovieScreenContent(
-            movie = movie,
-            navigation = LocalStackNavigation.current,
-//            onRatingChanged = { viewModel.onRatingChanged(it) }
+            state,
+            onBackPressed = { viewModel.back() }
         )
     }
 }
@@ -65,17 +65,18 @@ class DetailsScreen(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun MovieScreenContent(
-    movie: MovieFullEntity?,
-    navigation: StackNavContainer? = null
+    state: MovieDetailsState,
+    onBackPressed: () -> Unit,
+    //TODO: onRatingChanged: (Float) -> Unit если буду реализовывать пользовательский рейтинг
 ) {
     Scaffold(
         topBar = {
             CenterAlignedTopAppBar(
                 title = {
-                    movie?.primary_title.orEmpty()
+                    state.movie?.primary_title.orEmpty()
                 },
                 navigationIcon = {
-                    IconButton(onClick = { navigation?.back() }) {
+                    IconButton(onClick = { onBackPressed.invoke() }) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                             contentDescription = "Назад"
@@ -85,10 +86,18 @@ private fun MovieScreenContent(
             )
         },
     ) {
-        val movie = movie ?: run {
-            EmptyDataBox("По запросу нет результатов")
+        if (state.isLoading) {
+            FullscreenLoading()
             return@Scaffold
         }
+
+        state.error?.let {
+            FullscreenMessage(msg = it)
+            return@Scaffold
+        }
+        val movie = state.movie ?:
+            return@Scaffold
+
 
         Column(
             Modifier
@@ -100,7 +109,7 @@ private fun MovieScreenContent(
             Column() {
 
                 AsyncImage(
-                    model = movie.image_url,
+                    model = movie.primary_image,
                     contentDescription = null,
                     modifier = Modifier
                         .align(Alignment.CenterHorizontally)
@@ -133,7 +142,12 @@ private fun MovieScreenContent(
                     )
 
                     Text(
-                        text = "Рейтинг ${movie.rating}",
+                        text = "Рейтинг ${movie.aggregate_rating}",
+                        style = MaterialTheme.typography.titleMedium,
+                        modifier = Modifier.weight(0.3F)
+                    )
+                    Text(
+                        text = "Оценок: ${movie.votes_count}",
                         style = MaterialTheme.typography.titleMedium,
                         modifier = Modifier.weight(0.3F)
                     )
@@ -174,12 +188,14 @@ private fun MovieScreenContent(
 
 }
 
-@Preview
-@Composable
-private fun MovieScreenContentPreview() {
-    MovieScreenContent(MoviesRepository().getById("tt12299608"))
-
-}
+//@Preview
+//@Composable
+//private fun MovieScreenContentPreview() {
+//    MovieScreenContent(object : MovieDetailsState {
+//        override val movie = MoviesRepository().getById("tt12299608")
+//    }, {})
+//
+//}
 
 @Composable
 fun EmptyDataBox(msg: String) {

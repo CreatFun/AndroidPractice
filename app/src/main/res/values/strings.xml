@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">AndroidPractice</string>
     <string name="title_activity_main">MainActivity</string>
+    <string name="movie">Фильм</string>
+    <string name="series">Сериал</string>
+    <string name="search">Поиск</string>
+    <string name="other">Другое</string>
 </resources>
