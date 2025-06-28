@@ -4,7 +4,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
-import com.example.androidpractice.listWithDetails.data.entity.MoviesShortEntity
+import com.example.androidpractice.listWithDetails.domain.entity.MoviesShortEntity
 import com.example.androidpractice.listWithDetails.domain.repository.IMoviesRepository
 import com.example.androidpractice.listWithDetails.presentation.screens.DetailsScreen
 import com.example.androidpractice.listWithDetails.presentation.state.MoviesListState

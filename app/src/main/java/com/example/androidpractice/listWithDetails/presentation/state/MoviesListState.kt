@@ -1,6 +1,6 @@
 package com.example.androidpractice.listWithDetails.presentation.state
 
-import com.example.androidpractice.listWithDetails.data.entity.MoviesShortEntity
+import com.example.androidpractice.listWithDetails.domain.entity.MoviesShortEntity
 
 interface MoviesListState {
     val items: List<MoviesShortEntity>

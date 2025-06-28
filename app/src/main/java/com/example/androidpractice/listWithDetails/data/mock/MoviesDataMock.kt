@@ -1,7 +1,7 @@
 package com.example.androidpractice.listWithDetails.data.mock
 
-import com.example.androidpractice.listWithDetails.data.entity.MovieFullEntity
-import com.example.androidpractice.listWithDetails.data.entity.MoviesShortEntity
+import com.example.androidpractice.listWithDetails.domain.entity.MovieFullEntity
+import com.example.androidpractice.listWithDetails.domain.entity.MoviesShortEntity
 
 object MoviesDataMock {
     val moviesShort = listOf(

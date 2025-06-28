@@ -21,26 +21,20 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
-import com.example.androidpractice.listWithDetails.data.entity.MovieFullEntity
 import com.example.androidpractice.listWithDetails.data.repository.MoviesRepository
 import com.example.androidpractice.listWithDetails.presentation.state.MovieDetailsState
 import com.example.androidpractice.listWithDetails.presentation.viewModel.MovieDetailsViewModel
 import com.github.terrakok.modo.Screen
 import com.github.terrakok.modo.ScreenKey
 import com.github.terrakok.modo.generateScreenKey
-import com.github.terrakok.modo.stack.StackNavContainer
 import kotlinx.parcelize.Parcelize
 import ru.dekabrsky.consecutivepractice2025.ui.theme.Spacing
 import com.github.terrakok.modo.stack.LocalStackNavigation
-import com.github.terrakok.modo.stack.back
 import org.koin.androidx.compose.koinViewModel
 import org.koin.core.parameter.parametersOf
 

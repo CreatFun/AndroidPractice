@@ -9,7 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.example.androidpractice.listWithDetails.data.entity.MoviesShortEntity
+import com.example.androidpractice.listWithDetails.domain.entity.MoviesShortEntity
 import com.github.terrakok.modo.Screen
 import com.github.terrakok.modo.ScreenKey
 import com.github.terrakok.modo.generateScreenKey
@@ -27,15 +27,9 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import com.example.androidpractice.listWithDetails.data.mock.MoviesDataMock
-import com.example.androidpractice.listWithDetails.data.repository.MoviesRepository
 import com.example.androidpractice.listWithDetails.presentation.viewModel.ListViewModel
 import com.github.terrakok.modo.stack.LocalStackNavigation
-import com.github.terrakok.modo.stack.forward
 import org.koin.androidx.compose.koinViewModel
 import org.koin.core.parameter.parametersOf
 import ru.dekabrsky.consecutivepractice2025.ui.theme.Spacing

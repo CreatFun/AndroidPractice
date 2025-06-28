@@ -1,4 +1,4 @@
-package com.example.androidpractice.listWithDetails.data.entity
+package com.example.androidpractice.listWithDetails.domain.entity
 
 class MovieFullEntity(
     val id: String,
