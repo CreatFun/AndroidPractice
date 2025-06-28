@@ -10,6 +10,9 @@ interface MovieAPI {
     @GET("/v2/search/titles")
     suspend fun getMovies(
         @Query("query") search: String,
+
+        //TODO:Чтобы использовать фильтры нужно добавить подобный параметр, но в IMDbAPI нет рабочих query для фильтрации списка фильмов/сериаов
+        //@Query("type") type: String?
     ) : MoviesSearchResponse
 
     @GET("/v2/titles/{title_id}")

@@ -5,6 +5,10 @@ import androidx.annotation.RequiresApi
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.core.edit
+import androidx.datastore.preferences.core.stringSetPreferencesKey
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.androidpractice.coroutinesUtils.launchLoadingAndError
@@ -18,6 +22,7 @@ import com.github.terrakok.modo.stack.forward
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.time.debounce
+import org.koin.java.KoinJavaComponent.inject
 import java.time.Duration
 
 @RequiresApi(Build.VERSION_CODES.O)
@@ -33,6 +38,9 @@ class ListViewModel(
 
     private var filterTypes: Set<MovieType> = emptySet()
 
+    private val dataStore: DataStore<Preferences> by inject(DataStore::class.java)
+    private val typesKey = stringSetPreferencesKey(KEY_MOVIE_TYPES)
+
     init {
         viewModelScope.launch {
             textChangesFlow
@@ -43,6 +51,16 @@ class ListViewModel(
             MovieType.MOVIE,
             MovieType.SERIES,
             MovieType.MINI_SERIES)
+
+        viewModelScope.launch {
+            dataStore.data.collect {
+                filterTypes = it[typesKey]
+                    ?.map { MovieType.getByValue(it) }
+                    ?.toSet()
+                    .orEmpty()
+                updateBadge()
+            }
+        }
     }
 
     private fun loadMovies() {
@@ -85,6 +103,12 @@ class ListViewModel(
             filterTypes = mutableState.selectedTypes
             loadMovies()
             updateBadge()
+
+            viewModelScope.launch {
+                dataStore.edit {
+                    it[typesKey] = filterTypes.map { it.name }.toSet()
+                }
+            }
         }
         onSelectionDialogDismissed()
     }
@@ -112,5 +136,6 @@ class ListViewModel(
     }
     companion object {
         private const val MIN_QUERY_LENGTH_TO_SEARCH = 3
+        private const val KEY_MOVIE_TYPES = "MOVIE_TYPES"
     }
 }
