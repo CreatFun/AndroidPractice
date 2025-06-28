@@ -1,5 +1,6 @@
 package com.example.androidpractice.listWithDetails.data.repository
 
+import android.util.Log
 import com.example.androidpractice.listWithDetails.data.API.MovieAPI
 import com.example.androidpractice.listWithDetails.data.mapper.MovieResponseToEntityMapper
 import com.example.androidpractice.listWithDetails.domain.repository.IMoviesRepository
@@ -13,9 +14,11 @@ class MoviesRepository(
     override suspend fun getList(q: String) =
         withContext(Dispatchers.IO){
             val response = api.getMovies(q)
-            if (response.response.not()) {
-                throw Exception(response.error.orEmpty())
-            }
+            Log.v("TAG", response.toString())
+            //TODO: Обработать ошибку
+//            if (response.response.not()) {
+//                throw Exception(response.error.orEmpty())
+//            }
             mapper.mapSearch(response)
         }
 
