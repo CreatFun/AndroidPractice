@@ -17,7 +17,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
-import com.example.androidpractice.listWithDetails.presentation.screen.ListScreen
+import com.example.androidpractice.listWithDetails.presentation.screens.ListScreen
 import com.example.androidpractice.profile.presentation.screens.ProfileScreen
 import com.github.terrakok.modo.animation.SlideTransition
 import com.github.terrakok.modo.multiscreen.MultiScreen

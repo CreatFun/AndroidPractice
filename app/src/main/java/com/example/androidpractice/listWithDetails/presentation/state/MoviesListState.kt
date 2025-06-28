@@ -1,0 +1,9 @@
+package com.example.androidpractice.listWithDetails.presentation.state
+
+import com.example.androidpractice.listWithDetails.data.entity.MoviesShortEntity
+
+interface MoviesListState {
+    val items: List<MoviesShortEntity>
+    val query: String
+    val isEmpty: Boolean
+}
