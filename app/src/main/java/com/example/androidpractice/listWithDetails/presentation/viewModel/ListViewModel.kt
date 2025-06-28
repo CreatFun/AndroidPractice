@@ -31,11 +31,10 @@ class ListViewModel(
         navigation.forward(DetailsScreen(movieId = id))
     }
 
-    //TODO: для поисковой строки (можно использовать для фильтрации)
-//    fun onQueryChanged(query: String) {
-//        mutableState.query = query
-//        loadMovies()
-//    }
+    fun onQueryChanged(query: String) {
+        mutableState.query = query
+        loadMovies()
+    }
 
 
     private class MutableMoviesListState: MoviesListState {
