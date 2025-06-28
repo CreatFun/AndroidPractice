@@ -143,7 +143,12 @@ private fun MovieScreenContent(
                     )
 
                     Text(
-                        text = "Рейтинг ${movie.rating}",
+                        text = "Рейтинг ${movie.aggregate_rating}",
+                        style = MaterialTheme.typography.titleMedium,
+                        modifier = Modifier.weight(0.3F)
+                    )
+                    Text(
+                        text = "Оценок: ${movie.votes_count}",
                         style = MaterialTheme.typography.titleMedium,
                         modifier = Modifier.weight(0.3F)
                     )

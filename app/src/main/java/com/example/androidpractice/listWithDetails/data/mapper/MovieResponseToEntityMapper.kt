@@ -23,13 +23,9 @@ class MovieResponseToEntityMapper {
             id = response.id.orEmpty(),
             start_year = response.start_year.orEmpty(),
             plot = response.plot.orEmpty(),
-            primary_image = response.primary_image.orEmpty(),
-            rating = response.rating?.map {
-                MovieFullEntity.Rating(
-                    it.aggregate_rating.orEmpty(),
-                    it.votes_count.orEmpty()
-                )
-            }.orEmpty(),
+            primary_image = response.primary_image?.url.orEmpty(),
+            aggregate_rating = response.rating.aggregate_rating.orEmpty(),
+            votes_count = response.rating.votes_count.orEmpty(),
             type = response.type.orEmpty(),
             genres = response.genres.orEmpty(),
             runtime_minutes = response.runtime_minutes.orEmpty()

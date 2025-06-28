@@ -9,14 +9,10 @@ class MovieFullEntity(
 
     val primary_image: String = "",
     val genres: List<String> = emptyList(),
-    val rating: List<Rating> = emptyList(),
+    val votes_count: String = "",
+    val aggregate_rating: String = "",
     val runtime_minutes: String = "",
     val plot: String = ""
-) {
-    class Rating(
-        val votes_count: String = "",
-        val aggregate_rating: String = ""
-    )
-}
+)
 
 

@@ -15,9 +15,9 @@ class MovieFullResponse(
     @SerializedName("plot")
     val plot: String?,
     @SerializedName("primary_image")
-    val primary_image: String?,
+    val primary_image: ImgURLResponse?,
     @SerializedName("rating")
-    val rating: List<RatingResponse>?,
+    val rating: RatingResponse,
     @SerializedName("genres")
     val genres: List<String>?,
     @SerializedName("runtime_minutes")
