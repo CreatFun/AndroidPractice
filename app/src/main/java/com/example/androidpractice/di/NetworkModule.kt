@@ -1,6 +1,7 @@
 package com.example.androidpractice.di
 
 import android.content.Context
+import com.chuckerteam.chucker.api.ChuckerCollector
 import com.chuckerteam.chucker.api.ChuckerInterceptor
 import com.example.androidpractice.listWithDetails.data.API.MovieAPI
 import okhttp3.HttpUrl
@@ -18,20 +19,23 @@ val networkModule = module {
 
 fun provideRetrofit(context: Context): Retrofit {
     return Retrofit.Builder()
-        //TODO: заменить URL
-        .baseUrl("https://www.omdbapi.com/")
+        .baseUrl("https://rest.imdbapi.dev/")
         .addConverterFactory(GsonConverterFactory.create())
         .client(OkHttpClient.Builder().apply {
-            //TODO: апикей в выбранной API не используется
             addInterceptor {
                 Interceptor { chain ->
                     val request: Request = chain.request()
                     val url: HttpUrl =
-                        request.url.newBuilder().addQueryParameter("apikey", "b51fb855").build()
+                        request.url.newBuilder().build()
                     chain.proceed(request.newBuilder().url(url).build())
                 }.intercept(it)
             }
-            addInterceptor(ChuckerInterceptor(context))
+            addInterceptor(ChuckerInterceptor.Builder(context)
+                .collector(ChuckerCollector(context))
+                .maxContentLength(250000L)
+                .redactHeaders(emptySet())
+                .alwaysReadResponseBody(false)
+                .build())
         }.build())
         .build()
 

@@ -17,5 +17,10 @@ class MoviesShortResponse(
     @SerializedName("type")
     val type: String?,
     @SerializedName("primary_image")
-    val primary_image: String?
+    val primary_image: ImgURLResponse?
+)
+
+class ImgURLResponse(
+    @SerializedName("url")
+    val url: String?
 )

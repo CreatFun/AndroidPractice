@@ -13,7 +13,7 @@ class MovieResponseToEntityMapper {
                 primary_title = movie.primary_title.orEmpty(),
                 type = movie.type.orEmpty(),
                 start_year = movie.start_year.orEmpty(),
-                primary_image = movie.primary_image.orEmpty(),
+                primary_image = movie.primary_image?.url.orEmpty()
             )
         }.orEmpty()
 

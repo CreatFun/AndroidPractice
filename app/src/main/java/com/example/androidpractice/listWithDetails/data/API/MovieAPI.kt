@@ -3,17 +3,18 @@ package com.example.androidpractice.listWithDetails.data.API
 import com.example.androidpractice.listWithDetails.data.model.MovieFullResponse
 import com.example.androidpractice.listWithDetails.data.model.MoviesSearchResponse
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface MovieAPI {
-    @GET("/")
+    @GET("/v2/search/titles")
     suspend fun getMovies(
-        @Query("s") search: String,
-        @Query("page") page: Int = 1
+        @Query("query") search: String,
     ) : MoviesSearchResponse
 
-    @GET("/")
+    @GET("/v2/titles/{title_id}")
     suspend fun getMovie(
-        @Query("i") id: String? = null,
+        @Path("title_id") id: String? = null
+//        @Query("i") id: String? = null,
     ) : MovieFullResponse
 }
