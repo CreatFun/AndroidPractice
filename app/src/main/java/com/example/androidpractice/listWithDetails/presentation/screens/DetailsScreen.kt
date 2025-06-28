@@ -29,6 +29,7 @@ import coil3.compose.AsyncImage
 import com.example.androidpractice.listWithDetails.data.repository.MoviesRepository
 import com.example.androidpractice.listWithDetails.presentation.state.MovieDetailsState
 import com.example.androidpractice.listWithDetails.presentation.viewModel.MovieDetailsViewModel
+import com.example.androidpractice.ui.components.FullscreenLoading
 import com.github.terrakok.modo.Screen
 import com.github.terrakok.modo.ScreenKey
 import com.github.terrakok.modo.generateScreenKey
@@ -85,10 +86,19 @@ private fun MovieScreenContent(
             )
         },
     ) {
-        val movie = state.movie ?: run {
-            EmptyDataBox("По запросу нет результатов")
+        if (state.isLoading) {
+            FullscreenLoading()
             return@Scaffold
         }
+
+        //TODO: Вывод текста ошибки
+//        state.error?.let {
+//            FullscreenMessage(msg = it)
+//            return@Scaffold
+//        }
+        val movie = state.movie ?:
+            return@Scaffold
+
 
         Column(
             Modifier
@@ -100,7 +110,7 @@ private fun MovieScreenContent(
             Column() {
 
                 AsyncImage(
-                    model = movie.image_url,
+                    model = movie.primary_image,
                     contentDescription = null,
                     modifier = Modifier
                         .align(Alignment.CenterHorizontally)
@@ -174,14 +184,14 @@ private fun MovieScreenContent(
 
 }
 
-@Preview
-@Composable
-private fun MovieScreenContentPreview() {
-    MovieScreenContent(object : MovieDetailsState {
-        override val movie = MoviesRepository().getById("tt12299608")
-    }, {})
-
-}
+//@Preview
+//@Composable
+//private fun MovieScreenContentPreview() {
+//    MovieScreenContent(object : MovieDetailsState {
+//        override val movie = MoviesRepository().getById("tt12299608")
+//    }, {})
+//
+//}
 
 @Composable
 fun EmptyDataBox(msg: String) {

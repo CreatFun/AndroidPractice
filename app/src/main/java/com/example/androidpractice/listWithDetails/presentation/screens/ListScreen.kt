@@ -1,5 +1,7 @@
 package com.example.androidpractice.listWithDetails.presentation.screens
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -34,7 +36,6 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.ui.res.stringResource
 import com.example.androidpractice.R
-import com.example.androidpractice.listWithDetails.data.mock.MoviesDataMock
 import com.example.androidpractice.listWithDetails.presentation.viewModel.ListViewModel
 import com.github.terrakok.modo.stack.LocalStackNavigation
 import org.koin.androidx.compose.koinViewModel
@@ -46,6 +47,7 @@ class ListScreen(
     override val screenKey: ScreenKey = generateScreenKey()
 ) : Screen {
 
+    @RequiresApi(Build.VERSION_CODES.O)
     @Composable
     override fun Content(modifier: Modifier) {
         val navigation = LocalStackNavigation.current
@@ -100,7 +102,7 @@ fun MovieItem(
         verticalAlignment = Alignment.CenterVertically
     ) {
         AsyncImage(
-            model = item.img_url,
+            model = item.primary_image,
             contentDescription = item.primary_title,
             contentScale = ContentScale.Crop,
             modifier = Modifier
@@ -125,9 +127,9 @@ fun MovieItem(
 
 
 
-@Preview(showBackground = true)
-@Composable
-fun MovieItemPreview() {
-    MovieItem(item = MoviesDataMock.moviesShort.first())
-}
+//@Preview(showBackground = true)
+//@Composable
+//fun MovieItemPreview() {
+//    MovieItem(item = MoviesDataMock.moviesShort.first())
+//}
 
