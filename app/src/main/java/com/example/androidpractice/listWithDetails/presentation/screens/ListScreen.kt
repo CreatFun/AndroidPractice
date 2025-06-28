@@ -37,6 +37,7 @@ import androidx.compose.material3.TextField
 import androidx.compose.ui.res.stringResource
 import com.example.androidpractice.R
 import com.example.androidpractice.listWithDetails.presentation.viewModel.ListViewModel
+import com.example.androidpractice.ui.components.FullscreenLoading
 import com.github.terrakok.modo.stack.LocalStackNavigation
 import org.koin.androidx.compose.koinViewModel
 import org.koin.core.parameter.parametersOf
@@ -70,6 +71,11 @@ class ListScreen(
             },
             contentWindowInsets = WindowInsets(0.dp)
         ) {
+            if (state.isLoading) {
+                FullscreenLoading()
+                return@Scaffold
+            }
+
             if (state.isEmpty){
                 EmptyDataBox("По запросу нет результатов")
             }
