@@ -31,6 +31,8 @@ import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
 import com.example.androidpractice.listWithDetails.data.entity.MovieFullEntity
 import com.example.androidpractice.listWithDetails.data.repository.MoviesRepository
+import com.example.androidpractice.listWithDetails.presentation.state.MovieDetailsState
+import com.example.androidpractice.listWithDetails.presentation.viewModel.MovieDetailsViewModel
 import com.github.terrakok.modo.Screen
 import com.github.terrakok.modo.ScreenKey
 import com.github.terrakok.modo.generateScreenKey
@@ -39,6 +41,8 @@ import kotlinx.parcelize.Parcelize
 import ru.dekabrsky.consecutivepractice2025.ui.theme.Spacing
 import com.github.terrakok.modo.stack.LocalStackNavigation
 import com.github.terrakok.modo.stack.back
+import org.koin.androidx.compose.koinViewModel
+import org.koin.core.parameter.parametersOf
 
 
 @Parcelize
@@ -49,14 +53,16 @@ class DetailsScreen(
 
     @Composable
     override fun Content(modifier: Modifier) {
-        val movie by remember {
-            mutableStateOf(MoviesRepository().getById(movieId))
+        val navigation = LocalStackNavigation.current
+        val viewModel = koinViewModel<MovieDetailsViewModel>{
+            parametersOf(navigation, movieId)
         }
+        val state = viewModel.viewState
 
         MovieScreenContent(
-            movie = movie,
-            navigation = LocalStackNavigation.current,
-//            onRatingChanged = { viewModel.onRatingChanged(it) }
+            state,
+            onBackPressed = { viewModel.back() }
+            //TODO: onRatingChanged: onRatingChanged = { viewModel.onRatingChanged(it) } если буду реализовывать пользовательский рейтинг
         )
     }
 }
@@ -64,17 +70,18 @@ class DetailsScreen(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun MovieScreenContent(
-    movie: MovieFullEntity?,
-    navigation: StackNavContainer? = null
+    state: MovieDetailsState,
+    onBackPressed: () -> Unit,
+    //TODO: onRatingChanged: (Float) -> Unit если буду реализовывать пользовательский рейтинг
 ) {
     Scaffold(
         topBar = {
             CenterAlignedTopAppBar(
                 title = {
-                    movie?.primary_title.orEmpty()
+                    state.movie?.primary_title.orEmpty()
                 },
                 navigationIcon = {
-                    IconButton(onClick = { navigation?.back() }) {
+                    IconButton(onClick = { onBackPressed.invoke() }) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                             contentDescription = "Назад"
@@ -84,7 +91,7 @@ private fun MovieScreenContent(
             )
         },
     ) {
-        val movie = movie ?: run {
+        val movie = state.movie ?: run {
             EmptyDataBox("По запросу нет результатов")
             return@Scaffold
         }
@@ -176,7 +183,9 @@ private fun MovieScreenContent(
 @Preview
 @Composable
 private fun MovieScreenContentPreview() {
-    MovieScreenContent(MoviesRepository().getById("tt12299608"))
+    MovieScreenContent(object : MovieDetailsState {
+        override val movie = MoviesRepository().getById("tt12299608")
+    }, {})
 
 }
 
