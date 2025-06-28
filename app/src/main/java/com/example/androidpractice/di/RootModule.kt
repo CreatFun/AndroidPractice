@@ -19,7 +19,7 @@ import org.koin.dsl.module
 @RequiresApi(Build.VERSION_CODES.O)
 val rootModule = module {
 
-    single<IMoviesRepository> {MoviesRepository(get(), get())}
+    single<IMoviesRepository> {MoviesRepository(get(), get(), get())}
     single { getDataStore(androidContext()) }
 
     viewModel { ListViewModel(get(), it.get()) }
