@@ -88,6 +88,8 @@ class ProfileScreen(
                     error = painterResource(R.drawable.ic_launcher_background)
                 )
                 Text(text = state.name, style = Typography.headlineLarge)
+                Text(text = state.status, style = Typography.headlineSmall)
+                Text(text = state.url, style = Typography.headlineMedium)
 
             }
 
