@@ -28,14 +28,23 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material.icons.rounded.Search
+import androidx.compose.material3.Badge
+import androidx.compose.material3.BadgedBox
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.res.stringResource
 import com.example.androidpractice.R
+import com.example.androidpractice.listWithDetails.domain.entity.MovieType
 import com.example.androidpractice.listWithDetails.presentation.viewModel.ListViewModel
 import com.example.androidpractice.ui.components.FullscreenLoading
 import com.example.androidpractice.ui.components.FullscreenMessage
@@ -49,6 +58,7 @@ class ListScreen(
     override val screenKey: ScreenKey = generateScreenKey()
 ) : Screen {
 
+    @OptIn(ExperimentalMaterial3Api::class)
     @RequiresApi(Build.VERSION_CODES.O)
     @Composable
     override fun Content(modifier: Modifier) {
@@ -60,18 +70,46 @@ class ListScreen(
 
         Scaffold(
             topBar = {
-                TextField(
-                    value = state.query,
-                    onValueChange = { viewModel.onQueryChanged(it) },
-                    label = { Text(stringResource(R.string.search)) },
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(Spacing.small),
-                    leadingIcon = { Icon(Icons.Rounded.Search, null) }
-                )
+                Row(
+                    Modifier.padding(Spacing.small),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    TextField(
+                        value = state.query,
+                        onValueChange = { viewModel.onQueryChanged(it) },
+                        label = { Text(stringResource(R.string.search)) },
+                        modifier = Modifier.weight(1f),
+                        leadingIcon = { Icon(Icons.Rounded.Search, null) }
+                    )
+
+                    BadgedBox(
+                        badge = { if (state.hasBadge) Badge() },
+                        Modifier.padding(Spacing.small)
+                    ) {
+                        Icon(
+                            imageVector = Icons.Filled.MoreVert,
+                            contentDescription = "Фильтры",
+                            modifier = Modifier.clickable { viewModel.onFiltersClicked() }
+                        )
+                    }
+                }
+
             },
             contentWindowInsets = WindowInsets(0.dp)
         ) {
+
+            if (state.showTypesDialog) {
+                SelectionDialog(
+                    onDismissRequest = { viewModel.onSelectionDialogDismissed() },
+                    onConfirmation = {viewModel.onFiltersConfirmed()},
+                    title = "Отвильтровать по типу: ",
+                    variants = state.typesVariants,
+                    selectedVariants = state.selectedTypes
+                ) { variant: MovieType, isSelected ->
+                    viewModel.onSelectedVariantChanged(variant, isSelected)
+                }
+            }
+
             if (state.isLoading) {
                 FullscreenLoading()
                 return@Scaffold
@@ -88,10 +126,28 @@ class ListScreen(
 
             LazyColumn(Modifier.padding(it)) {
                 items(state.items) {
-                    MovieItem(
-                        item = it,
-                        Modifier.clickable { viewModel.onItemClicked(it.id) }
-                    )
+                    Row(
+                        modifier
+                            .padding(Spacing.medium)
+                            .fillMaxWidth(),
+                    ) {
+                        MovieItem(
+                            item = it,
+                            Modifier
+                                .weight(weight = 0.8f)
+                                .clickable { viewModel.onItemClicked(it.id) }
+                        )
+                        IconButton(
+                            onClick = { viewModel.addToFavourite(item = it)},
+                            modifier = Modifier.weight(weight = 0.2f)
+                        ) { Icon(
+                            rememberVectorPainter(Icons.Default.Add),
+                            contentDescription = "Добавить в избранное"
+                        )
+                        }
+                    }
+
+
                 }
             }
         }
@@ -109,8 +165,7 @@ fun MovieItem(
 ) {
     Row(
         modifier
-            .padding(Spacing.medium)
-            .fillMaxWidth(),
+            .padding(Spacing.medium),
         verticalAlignment = Alignment.CenterVertically
     ) {
         AsyncImage(
@@ -130,18 +185,10 @@ fun MovieItem(
                 style = MaterialTheme.typography.titleMedium
             )
             Text(
-                text = "${item.start_year} • ${item.type}",
+                text = "${item.start_year} • ${stringResource(item.type.stringRes)}",
                 style = MaterialTheme.typography.bodySmall
             )
         }
     }
 }
-
-
-
-//@Preview(showBackground = true)
-//@Composable
-//fun MovieItemPreview() {
-//    MovieItem(item = MoviesDataMock.moviesShort.first())
-//}
 

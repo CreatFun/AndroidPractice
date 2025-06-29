@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.List
 import androidx.compose.material.icons.filled.Face
+import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -17,6 +18,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
+import com.example.androidpractice.favourite.presentation.screens.FavouriteScreen
 import com.example.androidpractice.listWithDetails.presentation.screens.ListScreen
 import com.example.androidpractice.profile.presentation.screens.ProfileScreen
 import com.github.terrakok.modo.animation.SlideTransition
@@ -28,8 +30,11 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 class MainTabScreenFinal(
     private val navModel: MultiScreenNavModel = MultiScreenNavModel(
-        listOf(ListScreen(),
-            ProfileScreen()),
+        listOf(
+            ListScreen(),
+            ProfileScreen(),
+            FavouriteScreen()
+        ),
         selected = 0
     )
 ) : MultiScreen(navModel) {
@@ -97,5 +102,6 @@ enum class MainTabs(
     val title: String
 ) {
     LIST(Icons.AutoMirrored.Rounded.List, "List"),
-    PROFILE(Icons.Default.Face, "Profile")
+    PROFILE(Icons.Default.Face, "Profile"),
+    FAVOURITE(Icons.Default.Favorite, "Favourite")
 }
