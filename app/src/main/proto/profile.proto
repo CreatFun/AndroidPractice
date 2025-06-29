@@ -6,8 +6,8 @@ option java_multiple_files = true;
 message ProfileEntity {
   string photo_uri = 1;
   string name = 2;
-  Grade grade = 3;
-  string url = 4;
+  string url = 3;
+  string status = 4;
 }
 enum Grade {
     JUNIOR = 0;
