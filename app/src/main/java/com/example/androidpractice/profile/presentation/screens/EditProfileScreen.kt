@@ -91,7 +91,7 @@ class EditProfileScreen(
             ) { isGranted: Boolean ->
                 if (!isGranted) {
                     val dialog = AlertDialog.Builder(context)
-                        .setMessage("Ну, так не пойдет...")
+                        .setMessage("Пожалуйста, предоставьте необходимые разрешения")
                         .setCancelable(false)
                         .setPositiveButton("OK") { _, _ ->
                             navigation.back()
