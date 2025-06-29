@@ -7,6 +7,7 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.PreferenceDataStoreFactory
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStoreFile
+import com.example.androidpractice.favourite.presentation.viewModel.FavouriteViewModel
 import com.example.androidpractice.listWithDetails.data.mapper.MovieResponseToEntityMapper
 import com.example.androidpractice.listWithDetails.data.repository.MoviesRepository
 import com.example.androidpractice.listWithDetails.domain.repository.IMoviesRepository
@@ -24,6 +25,7 @@ val rootModule = module {
 
     viewModel { ListViewModel(get(), it.get()) }
     viewModel { MovieDetailsViewModel(get(), it.get(), it.get()) }
+    viewModel { FavouriteViewModel(get()) }
 
     factory { MovieResponseToEntityMapper() }
 }
