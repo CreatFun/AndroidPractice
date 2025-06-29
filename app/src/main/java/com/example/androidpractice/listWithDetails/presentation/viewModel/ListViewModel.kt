@@ -122,6 +122,12 @@ class ListViewModel(
         mutableState.selectedTypes = filterTypes
     }
 
+    fun addToFavourite(item: MoviesShortEntity){
+        viewModelScope.launch {
+            repository.saveFavorite(item)
+        }
+    }
+
 
     private class MutableMoviesListState: MoviesListState {
         override var items: List<MoviesShortEntity> by mutableStateOf(emptyList())
